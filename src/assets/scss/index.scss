@@ -1,0 +1,43 @@
+@import "./fonts";
+@import "./reset";
+@import "./functions";
+@import "./globals";
+
+:root {
+  --font-ldr: "Lexend-Deca-Regular";
+  --font-ldeb: "Lexend-Deca-Extra-Bold";
+  --font-ldb: "Lexend-Deca-Bold";
+
+  --heading-1: #{toRem(44)};
+  --heading-2: #{toRem(32)};
+  --heading-3: #{toRem(22)};
+  --heading-4: #{toRem(20)};
+  --heading-5: #{toRem(16)};
+  --heading-6: #{toRem(14)};
+
+  --paragraph-1: #{toRem(14)};
+  --paragraph-2: #{toRem(12)};
+
+  --bg-black: #000;
+  --bg-white: #fff;
+
+  --button-bg-black: #000;
+  --button-bg-white: #fff;
+  --button-bg-orange: #ea5d4b;
+
+  --color-black: #000;
+  --color-grey: #9d9d9d;
+  --color-white: #fff;
+  --color-red: #ea4c5c;
+
+  --border-color-black: #000;
+  --border-color-red: #ea4c5c;
+  --border-color-grey: #9d9d9d;
+
+  --shadow-color-1: #00000029;
+
+  --gallery-grid-gap: #{toRem(36)};
+  --header-height: #{toRem(60)};
+
+  --popup-message-bg: #000;
+}
