@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useStore } from "@/store";
 import { reactive, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { LoginData } from "../types";
@@ -9,6 +10,7 @@ const passwordHasError = ref<boolean>(false);
 const usernameErrorPlaceholder = ref<string>("");
 const passwordErrorPlaceholder = ref<string>("");
 const router = useRouter();
+const store = useStore();
 
 watch(
   loginData,
@@ -45,6 +47,7 @@ const login = () => {
   if (!usernameHasError.value && !passwordHasError.value) {
     localStorage.setItem("token", "token");
     router.push({ name: "Dashboard" });
+    store.commit("setIsLogged", true);
   }
 };
 </script>
@@ -137,13 +140,20 @@ const login = () => {
 .login__footer {
   width: 100%;
 }
+.login__titles,
+.login__error-msg {
+  text-align: center;
+}
+.login__label,
+.login__input {
+  font-size: var(--heading-6);
+}
 .login {
   justify-content: space-between;
   &__panel {
     margin: toRem(100) auto toRem(291) auto;
   }
   &__titles {
-    text-align: center;
     line-height: toRem(40);
     margin-bottom: toRem(40);
   }
@@ -162,13 +172,12 @@ const login = () => {
   &__label {
     margin-bottom: toRem(7);
     text-transform: uppercase;
-    font-size: var(--heading-6);
+    line-height: toRem(18);
   }
   &__input {
     max-width: toRem(327);
     padding: toRem(14) toRem(16);
     border: 2px solid var(--border-color-black);
-    font-size: var(--heading-6);
     letter-spacing: toRem(0.32);
     line-height: toRem(20);
     &::placeholder {
@@ -180,7 +189,6 @@ const login = () => {
   }
   &__error-msg {
     position: absolute;
-    text-align: center;
     bottom: toRem(-24);
     font-size: var(--paragraph-2);
   }

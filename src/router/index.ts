@@ -1,3 +1,4 @@
+import { store } from "@/store";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
@@ -22,6 +23,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name !== "Login" && !localStorage.getItem("token")) {
+    store.commit("setIsLogged", false);
     next({ name: "Login" });
   } else if (to.name === "Login" && localStorage.getItem("token")) {
     next({ name: "Dashboard" });
