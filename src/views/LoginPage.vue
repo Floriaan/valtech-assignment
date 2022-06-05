@@ -111,7 +111,7 @@ const login = () => {
       <div class="login__vector">
         <img
           src="../assets/icons/Vector.svg"
-          alt="Vector"
+          alt="Digital Camera"
           class="login__vector-img"
         />
       </div>

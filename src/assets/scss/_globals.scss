@@ -66,3 +66,8 @@ input {
   max-width: 1320px;
   margin: 0 auto;
 }
+.not-found {
+  font-size: var(--heading-1);
+  text-align: center;
+  padding: toRem(70) 0;
+}

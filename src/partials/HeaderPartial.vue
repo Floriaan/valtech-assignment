@@ -9,7 +9,7 @@ import logo from "../assets/icons/Site Logo.svg";
         class="header__logo"
         title="Valstock"
       >
-        <img :src="logo" alt="Logo" class="header__logo-img" />
+        <img :src="logo" alt="Logo Icon" class="header__logo-img" />
       </router-link>
     </div>
   </header>

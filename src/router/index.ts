@@ -3,16 +3,24 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/LoginPage.vue"),
+  },
+  {
     path: "/",
     name: "Dashboard",
     component: () =>
       import(/* webpackChunkName: "dashboard" */ "../views/DashboardPage.vue"),
   },
   {
-    path: "/login",
-    name: "Login",
+    path: "/image-details/:id",
+    name: "ImageDetails",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/LoginPage.vue"),
+      import(
+        /* webpackChunkName: "image-details" */ "../views/ImageDetailsPage.vue"
+      ),
   },
 ];
 
