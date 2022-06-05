@@ -6,7 +6,6 @@ module.exports = defineConfig({
       sass: {
         additionalData: `
               @import "./src/assets/scss/_functions.scss";
-              @import "./src/assets/scss/_mixins.scss";
             `,
       },
     },

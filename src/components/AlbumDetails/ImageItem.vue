@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ImageDetails } from "../../types";
-import { computed, defineProps } from "vue";
+import { computed } from "vue";
 import { baseUrl } from "../../config";
 
 interface ImageItemProps {
@@ -9,6 +9,7 @@ interface ImageItemProps {
   imagesToRemove: ImageDetails[];
 }
 
+// eslint-disable-next-line no-undef
 const props = defineProps<ImageItemProps>();
 
 const isRemoved = computed<boolean>(() =>

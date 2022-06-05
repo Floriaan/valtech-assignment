@@ -209,23 +209,4 @@ const login = () => {
 .login__error-msg {
   color: var(--color-red);
 }
-@include desktop() {
-  .login {
-    &__footer {
-      height: toRem(160);
-    }
-    &__vector {
-      width: toRem(400);
-    }
-  }
-}
-@include tabletsH() {
-  .login {
-    &__panel {
-      padding: 20px;
-      margin: toRem(40) auto toRem(150) auto;
-      width: 100%;
-    }
-  }
-}
 </style>

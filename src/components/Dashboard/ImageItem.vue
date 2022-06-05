@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { baseUrl } from "@/config";
-import { computed, defineProps } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "../../store";
 import { ImageDetails } from "../../types";
@@ -13,20 +13,21 @@ interface ImageItemProps {
 const router = useRouter();
 const store = useStore();
 
+// eslint-disable-next-line no-undef
 const props = defineProps<ImageItemProps>();
 
 const goToDetails = (): void => {
   router.push({ name: "ImageDetails", params: { id: props.image.id } });
 };
 
-const isEven = computed<boolean>(() => props.index % 2 === 0);
+const isEven = computed<boolean>(() => props.index % 2 !== 0);
 </script>
 <template>
   <li class="dashboard__image-wrapper">
     <div class="dashboard__image">
       <img
         :src="
-          !isEven
+          isEven
             ? `${baseUrl}id/${image.id}/416/520`
             : `${baseUrl}id/${image.id}/416/276`
         "
@@ -51,9 +52,8 @@ const isEven = computed<boolean>(() => props.index % 2 === 0);
 <style scoped lang="scss">
 .dashboard {
   &__image-wrapper {
-    width: calc(100% / 3);
-    padding: var(--gallery-grid-gap) calc(var(--gallery-grid-gap) / 2) 0
-      calc(var(--gallery-grid-gap) / 2);
+    margin-bottom: var(--gallery-grid-gap);
+    width: toRem(416);
   }
   &__image {
     cursor: pointer;

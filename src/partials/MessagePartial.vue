@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, watch, defineProps } from "vue";
+import { ref, watch } from "vue";
 import { useStore } from "../store";
 interface MessagePopupInterface {
   message?: string;
   state: boolean;
 }
+// eslint-disable-next-line no-undef
 const props = defineProps<MessagePopupInterface>();
 
 const store = useStore();

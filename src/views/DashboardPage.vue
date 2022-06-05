@@ -22,6 +22,6 @@ onErrorCaptured((err) => {
 </template>
 <style scoped lang="scss">
 .dashboard {
-  padding-bottom: var(--gallery-grid-gap);
+  padding: var(--gallery-grid-gap) 0;
 }
 </style>

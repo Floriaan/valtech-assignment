@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps } from "vue";
+import { ref } from "vue";
 
 const showDropdown = ref<boolean>(false);
 
@@ -8,6 +8,7 @@ interface DropdownProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   items: any[];
 }
+// eslint-disable-next-line no-undef
 defineProps<DropdownProps>();
 
 const toggleDropdown = (): void => {

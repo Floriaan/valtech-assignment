@@ -63,8 +63,11 @@ input {
   }
 }
 .container {
-  max-width: 1320px;
+  max-width: toRem(1320);
   margin: 0 auto;
+  @media (max-width: 1370px) {
+    max-width: toRem(1000);
+  }
 }
 .not-found {
   font-size: var(--heading-1);

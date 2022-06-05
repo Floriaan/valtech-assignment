@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { PropType, defineProps, defineEmits } from "vue";
+import { PropType } from "vue";
 
 interface AlbumTitleEmit {
   (e: "submit"): void;
   (e: "update:modelValue", value: string): void;
 }
+// eslint-disable-next-line no-undef
 defineProps({
   modelValue: {
     required: true,
@@ -25,6 +26,7 @@ defineProps({
   },
 });
 
+// eslint-disable-next-line no-undef
 const emit = defineEmits<AlbumTitleEmit>();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps } from "vue";
+import { computed } from "vue";
 import { Album } from "../types/index";
 
 interface AlbumProps {
@@ -8,6 +8,7 @@ interface AlbumProps {
   toggleSelection(album: Album, type: "select" | "deselect"): void;
 }
 
+// eslint-disable-next-line no-undef
 const props = defineProps<AlbumProps>();
 
 const isSelected = computed<boolean>(() =>
