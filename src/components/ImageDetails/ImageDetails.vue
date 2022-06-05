@@ -2,20 +2,52 @@
 import { computed } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "../../store";
-import { ImageDetails } from "../../types";
+import { ImageDetails, DownloadableImage } from "../../types";
 import { baseUrl } from "@/config";
+import DropdownPartial from "@/partials/DropdownPartial.vue";
+import { ref } from "vue";
+
+const downloadableImages = ref<DownloadableImage[]>([
+  { name: "original", width: 2632, height: 3290 },
+  { name: "large", width: 1920, height: 2400 },
+  { name: "medium", width: 1280, height: 1600 },
+  { name: "small", width: 640, height: 800 },
+]);
 
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
 
+const imageDetails = computed<ImageDetails>(() => store.getters.imageDetails);
+
 const goBack = (): void => {
   router.back();
 };
 
-await store.dispatch("getImageDetails", route.params.id);
+const createDownloadableImage = async (
+  width: number,
+  height: number
+): Promise<string> => {
+  const link = `${baseUrl}id/${imageDetails.value.id}/${width}/${height}.jpg`;
+  const image = await fetch(link);
+  const blob = await image.blob();
 
-const imageDetails = computed<ImageDetails>(() => store.getters.imageDetails);
+  return URL.createObjectURL(blob);
+};
+
+const init = async (): Promise<void> => {
+  await store.dispatch("getImageDetails", route.params.id);
+  downloadableImages.value = await Promise.all(
+    downloadableImages.value.map(async (image) => ({
+      blob: await createDownloadableImage(image.width, image.height),
+      name: image.name,
+      width: image.width,
+      height: image.height,
+    }))
+  );
+};
+
+await init();
 </script>
 <template>
   <section class="details">
@@ -35,9 +67,20 @@ const imageDetails = computed<ImageDetails>(() => store.getters.imageDetails);
         </button>
       </div>
       <div class="details__button-wrapper">
-        <button type="button" class="button button--default--non-active">
-          download
-        </button>
+        <DropdownPartial title="download" :items="downloadableImages">
+          <template #item="{ item }">
+            <a
+              class="details__download"
+              :href="item.blob"
+              :download="`${imageDetails.author}(${item.width} x ${item.height})`"
+            >
+              <h3 class="details__download-name">{{ `${item.name}` }}</h3>
+              <p class="details__download-dimension">
+                {{ `${item.width} x ${item.height}` }}
+              </p>
+            </a>
+          </template>
+        </DropdownPartial>
       </div>
     </div>
     <div class="details__image-wrapper">
@@ -59,7 +102,8 @@ const imageDetails = computed<ImageDetails>(() => store.getters.imageDetails);
 </template>
 <style scoped lang="scss">
 .details,
-.details__buttons {
+.details__buttons,
+.details__download {
   display: flex;
 }
 .details__image-wrapper,
@@ -74,9 +118,17 @@ const imageDetails = computed<ImageDetails>(() => store.getters.imageDetails);
 .details__upload-date {
   line-height: toRem(18);
 }
+.details,
+.details__download {
+  flex-direction: column;
+}
+.details__upload-date,
+.details__download-name,
+.details__download-dimension {
+  color: var(--color-grey);
+}
 .details {
   padding: toRem(70) 0 toRem(116) 0;
-  flex-direction: column;
   align-items: center;
   &__button-wrapper {
     width: toRem(140);
@@ -99,8 +151,19 @@ const imageDetails = computed<ImageDetails>(() => store.getters.imageDetails);
       font-size: var(--heading-2);
       line-height: toRem(40);
     }
-    &-date {
-      color: var(--color-grey);
+  }
+  &__download {
+    line-height: toRem(20);
+    &:hover {
+      .details__download-name,
+      .details__download-dimension {
+        color: var(--color-black);
+      }
+    }
+    &-name {
+      text-transform: uppercase;
+      font-family: var(--font-ldeb);
+      font-size: var(--heading-7);
     }
   }
 }

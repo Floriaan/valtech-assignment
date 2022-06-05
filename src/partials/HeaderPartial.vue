@@ -1,5 +1,16 @@
 <script setup lang="ts">
 import logo from "../assets/icons/Site Logo.svg";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "../store";
+import { Album } from "../types";
+import DropdownPartial from "./DropdownPartial.vue";
+
+const route = useRoute();
+const store = useStore();
+
+const albums = computed<Album[]>(() => store.getters.albums);
+const isLogged = computed<boolean>(() => store.getters.isLogged);
 </script>
 <template>
   <header class="header">
@@ -11,6 +22,22 @@ import logo from "../assets/icons/Site Logo.svg";
       >
         <img :src="logo" alt="Logo Icon" class="header__logo-img" />
       </router-link>
+      <div class="header__dropdown" v-if="isLogged">
+        <DropdownPartial title="my albums" :items="albums">
+          <template #item="{ item }">
+            <router-link
+              :to="{ name: 'AlbumDetails', params: { id: item.id } }"
+              class="header__dropdown-link"
+              :class="{
+                'header__dropdown-link--active':
+                  route.name === 'AlbumDetails' && route.params.id === item.id,
+              }"
+            >
+              <span :title="item.title">{{ item.title }}</span>
+            </router-link>
+          </template>
+        </DropdownPartial>
+      </div>
     </div>
   </header>
 </template>
