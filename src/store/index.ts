@@ -127,8 +127,12 @@ export const store = createStore<State>({
     },
   },
   actions: {
-    async getListOfImages({ commit }): Promise<void> {
-      const data = await fetch(`${baseUrl}/v2/list?page=2&limit=30`, {
+    async getListOfImages(
+      { commit, state },
+      // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+      page: number = 1
+    ): Promise<ImageDetails[] | void> {
+      const data = await fetch(`${baseUrl}/v2/list?page=${page}&limit=30`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -136,7 +140,8 @@ export const store = createStore<State>({
       });
       if (data.ok) {
         const images = await data.json();
-        commit("setImages", images);
+        commit("setImages", [...state.images, ...images]);
+        return images;
       } else {
         const errorResponse = await data.json();
         throw errorResponse.error;

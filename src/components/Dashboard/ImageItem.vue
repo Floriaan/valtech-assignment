@@ -53,7 +53,9 @@ const isEven = computed<boolean>(() => props.index % 2 !== 0);
 .dashboard {
   &__image-wrapper {
     margin-bottom: var(--gallery-grid-gap);
-    width: toRem(416);
+    padding: 0 calc(var(--gallery-grid-gap) / 2) 0
+      calc(var(--gallery-grid-gap) / 2);
+    width: calc(100% / 3);
   }
   &__image {
     cursor: pointer;

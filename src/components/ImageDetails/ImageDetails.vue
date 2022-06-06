@@ -127,6 +127,10 @@ await init();
 .details__download-dimension {
   color: var(--color-grey);
 }
+.details__upload-by,
+.details__download-name {
+  text-transform: uppercase;
+}
 .details {
   padding: toRem(70) 0 toRem(116) 0;
   align-items: center;
@@ -143,7 +147,6 @@ await init();
   &__upload {
     &-by {
       font-family: var(--font-ldb);
-      text-transform: uppercase;
     }
     &-author {
       letter-spacing: toRem(0.64);
@@ -161,7 +164,6 @@ await init();
       }
     }
     &-name {
-      text-transform: uppercase;
       font-family: var(--font-ldeb);
       font-size: var(--heading-7);
     }

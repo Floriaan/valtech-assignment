@@ -34,6 +34,7 @@ watch(
   () => {
     if (route.name === "AlbumDetails") {
       preloadTitle();
+      imagesToRemove.value = [];
     }
   }
 );
@@ -56,7 +57,7 @@ watch(albumTitle, (newValue) => {
 });
 
 const albumExists = (title: string): boolean => {
-  return albums.value.some((album) => album.title === title);
+  return albums.value.some((album: Album) => album.title === title);
 };
 
 const goBack = (): void => {
@@ -157,10 +158,13 @@ const saveChanges = (): void => {
 .album-details__buttons {
   display: flex;
 }
+.album-details,
+.album-details__grid {
+  width: 100%;
+}
 .album-details {
   padding: toRem(67) 0 toRem(118) 0;
   max-width: toRem(678);
-  width: 100%;
   margin: 0 auto;
   flex-direction: column;
   align-items: center;
@@ -171,7 +175,6 @@ const saveChanges = (): void => {
   }
   &__grid {
     max-width: toRem(642);
-    width: 100%;
     display: grid;
     gap: var(--gallery-grid-gap);
     grid-template-columns: repeat(3, 1fr);

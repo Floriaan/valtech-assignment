@@ -68,6 +68,12 @@ input {
   @media (max-width: 1370px) {
     max-width: toRem(1000);
   }
+  @media (max-width: 1370px) {
+    max-width: toRem(1000);
+  }
+  @media (max-width: 1100px) {
+    max-width: toRem(700);
+  }
 }
 .not-found {
   font-size: var(--heading-1);
